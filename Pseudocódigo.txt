@@ -1,0 +1,49 @@
+DECLARACIÓN DE VARIABLES GLOBALES
+Se declararán una variable constante que almacenará el alfabeto con las letras disponibles a cifrar, otra para los caracteres que se usan para el cifrado aleatorio (Usar como mínimo 9 caracteres, un espacio vacío al principio, no usar números, y sin repetir caracteres. Ejemplo, abcdhfgjk) y por último otra variable global para almacenar la longitud de la matriz (matriz simétrica).
+
+FUNCIONES
+Se crearán funciones necesarias para el proceso de cifrado y descifrado:
+	- Separador de arreglo de una sola dimensión a texto plano.
+	- Obtener el determinante de una matriz
+	- Convertir un arreglo en matriz simétrica, basándose en la longitud de la matriz
+	- Saber dos matrices son válidas para multiplicar
+	- Multiplicar una matriz
+	- Generar matrices vacías, con n cantidad de filas y columnas
+	- Obtener la matriz inversa de una matriz
+	- Convertir un número entero a fracción
+	- Multiplicar, sumar, restar y reducir una facción
+	- Buscar una letra de un texto y devolver la posición en la que esta; si no existe devolver un -1
+	- Obtener la posición de un texto basado en un carácter, y devolver el carácter, de dicha posición; si no existe del volver vacío
+	- Remplazar una letra de un texto
+	- Remplazar posiciones de un texto por un carácter cualquiera y devolver el texto remplazado
+	- Separar texto por medio de un carácter seleccionado y devolver un arreglo. Que contenga en cada posición los caracteres separados
+	- Saber si un texto es número
+	- Saber si un número es decimal
+	- Saber si un número es negativo
+	- Generar n cantidad de número aleatorios, basados entre un mínimo y máximo número
+	- Cambiar el signo de un número
+	- Modular un número
+
+INCIO
+Se pedirá al usuario alguna de las siguientes opciones, en caso de no existir repetirá el mensaje hasta que se elija la opción de Salir
+	1.- Cifrar
+	2.- Descifrar
+	3.- Cambiar llave
+	4.- Generar llave aleatoria
+	0.- Salir
+
+
+CIFRAR Y DESCIFRAR
+Codificara el texto convirtiendo en una matriz con la misma cantidad de filas que la llave, y con las columnas necesarias. Cada columna estará conformada separando los caracteres del texto a cifrar por bloques de la longitud de la matriz. Si es de 3x3 la llave entonces la longitud de la matriz es 3.
+Después de multiplicar la matriz llave, por la matriz obtener del texto. Para ser cifrada
+Por último, se tomará la matriz resultante en convertido en texto plano, y se hará un cifrado aleatorio.
+Para descifrar se hará el mismo proceso a la inversa, a excepción de la matriz llave, que se tendrá que multiplicar por su inversa
+
+CAMBIAR LLAVE
+En este apartado se pedir la cantidad necesaria de números enteros para formar la matriz llave de acuerdo con la longitud de la matriz, y tendrá que verificar si su determinante es 0; si es así pedir al usuario que digite otros números diferentes
+
+GENERAR LLAVE ALEATORIA
+Generar números aleatorios de acuerdo con la longitud de la matriz, y verificar si su determinante es 0; si es así modificar la matriz para que tenga determinante
+
+SALIR
+Sale del programa, cerrando la ventana de opciones.
