@@ -92,6 +92,9 @@
 			return matriz;
 		},
 		inversa:function(logitud,matriz){
+			if(logitud<3 || matriz.length<3 || matriz[0].length<3){
+				return -1;
+			}
 			let determinante=globales.matrices.determinante(matriz);
 			matriz_nueva=globales.matrices.generarVacia(logitud,logitud);
 			matriz_nueva[0][0]=1*(Number(matriz[1][1])*Number(matriz[2][2])-Number(matriz[1][2])*Number(matriz[2][1]));
