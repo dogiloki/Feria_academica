@@ -369,7 +369,7 @@
 		let texto="";
 		let num_fin1=Math.round(Math.random()*(9-1)+1);
 		let num_fin2=Math.round(Math.random()*(9-1)+1);
-		let num_matrices=matriz[0].length;
+		let num_matrices=matriz[0]??"".length;
 		for(let fila=0; fila<matriz.length; fila++){
 			let num1=Math.round(Math.random()*((CARACTERES_CIFRAR.length-1)-1)+1);
 			let num2=Math.round(Math.random()*((CARACTERES_CIFRAR.length-1)-1)+1);
