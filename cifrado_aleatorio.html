@@ -358,7 +358,7 @@
 		let matriz_inversa=globales.matrices.inversa(logitud_matriz,matriz_llave);
 		if(matriz_inversa==-1){
 			alert("Llave no válida");
-			return 0;
+			return -1;
 		}else{
 			matriz_llave=(cifrar)?matriz_llave:matriz_inversa;
 			return globales.matrices.multiplicar(matriz_llave,matriz);
@@ -369,7 +369,7 @@
 		let texto="";
 		let num_fin1=Math.round(Math.random()*(9-1)+1);
 		let num_fin2=Math.round(Math.random()*(9-1)+1);
-		let num_matrices=matriz[0]??"".length;
+		let num_matrices=(matriz[0]??"").length;
 		for(let fila=0; fila<matriz.length; fila++){
 			let num1=Math.round(Math.random()*((CARACTERES_CIFRAR.length-1)-1)+1);
 			let num2=Math.round(Math.random()*((CARACTERES_CIFRAR.length-1)-1)+1);
@@ -460,7 +460,7 @@
 			}
 		}while(repetir!="");
 		globales.llave=llave;
-		return (repetir=="")?"Sin cambio":"Llave cambiada a: "+globales.llave;
+		return (repetir=="")?"Llave cambiada a: "+globales.llave:"Sin cambio";
 	}
 
 	function generarllaveAleatoria(logitud_matriz,min,max){
@@ -470,7 +470,11 @@
 			let matriz_llave=globales.matrices.dimensionar(logitud_matriz,matriz);
 			if(globales.matrices.determinante(matriz_llave)==0){
 				matriz[0]=Number(matriz_llave[0][0])+1;
-				matriz[matriz.length]=Number(matriz_llave[logitud_matriz-1][logitud_matriz-1])+1;
+				if((matriz[0]-1)!=matriz[matriz.length-1]){
+					matriz[matriz.length-1]=Number(matriz_llave[logitud_matriz-1][logitud_matriz-1])+1;
+				}else{
+					matriz[Math.floor(matriz.length/2)]=Number(matriz_llave[logitud_matriz-1][logitud_matriz-1])+1;
+				}
 			}
 			globales.llave=globales.matrices.separar(",",matriz);
 			return "Llave cambiada a: "+globales.llave;
