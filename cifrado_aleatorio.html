@@ -1,7 +1,7 @@
 <script>
 	
 	const ALFABETO=" ABCDEFGHIJKLMNÑOPQRSTUVWXYZ0123456789,.-abcdefghijklmnñopqrstuvwxyzÁÉÍÓÚáéíóú";
-	// q
+	// Usar como mínimo 9 caracteres, un espacio vacío al principio, no usar números, y sin repetir caracteres. Ejemplo, abcdhfgjk
 	const CARACTERES_CIFRAR=" LMNfBCDoprsFabGghHtuZWXYwRSTvUxyijklmnzAEIcdeJKOPqQV";
 	const LOGITUD_MATRIZ=3;
 
@@ -463,7 +463,7 @@
 	}
 
 	function generarllaveAleatoria(logitud_matriz,min,max){
-		if((min!="" || max!="") && (min.length<=16 && max.length<=16) && (globales.numeros.es.numero(min) && globales.numeros.es.numero(max))){
+		if((min!="" || max!="") && (globales.numeros.es.numero(min) && globales.numeros.es.numero(max))){
 			let llave=globales.numeros.aleatorio(",",logitud_matriz*logitud_matriz,min,max);
 			let matriz=globales.textos.separar(",",llave);
 			let matriz_llave=globales.matrices.dimensionar(logitud_matriz,matriz);
