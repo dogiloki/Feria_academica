@@ -297,10 +297,10 @@
 		globales.opcion=parseInt(prompt("Llave actual: "+globales.llave+" \n\n1 - Cifrar\n2 - Descifrar\n3 - Cambiar llave\n4.- Generar llave aleatoria\n0 - Salir"));
 
 		switch(globales.opcion){
-			case 1: alert(cifrado(true,prompt("Digite un texto")??"")); break;
-			case 2: alert(cifrado(false,prompt("Digite un texto")??"")); break;
-			case 3: cambiarLlave(LOGITUD_MATRIZ); break;
-			case 4: alert(generarllaveAleatoria(LOGITUD_MATRIZ,prompt("Número mínimo a generar (máximo 16 digitos)")??0,prompt("Número máximo a generar (máximo 16 digitos)")??0));
+			case 1: alert(cifrado(true,prompt("Digite texto a cifrar")??"")); break;
+			case 2: alert(cifrado(false,prompt("Digite texto a descifrar")??"")); break;
+			case 3: alert(cambiarLlave(LOGITUD_MATRIZ)); break;
+			case 4: alert(generarllaveAleatoria(LOGITUD_MATRIZ,prompt("Número mínimo a generar")??0,prompt("Número máximo a generar")??0));
 			case 0: break;
 			default: alert("Opción no válida"); break;
 		}
@@ -460,6 +460,7 @@
 			}
 		}while(repetir!="");
 		globales.llave=llave;
+		return (repetir=="")?"Sin cambio":"Llave cambiada a: "+globales.llave;
 	}
 
 	function generarllaveAleatoria(logitud_matriz,min,max){
