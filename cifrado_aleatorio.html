@@ -3,7 +3,7 @@
 	const ALFABETO=" ABCDEFGHIJKLMNÑOPQRSTUVWXYZ0123456789,.-abcdefghijklmnñopqrstuvwxyzÁÉÍÓÚáéíóú";
 	// Usar como mínimo 9 caracteres, un espacio vacío al principio, no usar números, y sin repetir caracteres. Ejemplo, abcdhfgjk
 	const CARACTERES_CIFRAR=" LMNfBCDoprsFabGghHtuZWXYwRSTvUxyijklmnzAEIcdeJKOPqQV";
-	const LOGITUD_MATRIZ=3;
+	const LOGITUD_MATRIZ=3 // No cambiar, el determinante y la inversa están adaptadas para logitud de 3
 
 	var globales={
 		opcion:"",
@@ -51,7 +51,7 @@
 			return matriz_final;
 		},
 		esMultiplicable:function(matriz1,matriz2){
-			return (matriz1[0].length==matriz2.length)?true:false;
+			return (matriz1[0].length==matriz2.length);
 		},
 		multiplicar:function(matriz1,matriz2){
 			let matriz_final=[];
@@ -59,7 +59,7 @@
 				for(let fila=0; fila<matriz2.length; fila++){
 					matriz_final[fila]=[];
 					for(let columna=0; columna<matriz2[fila].length; columna++){
-						matriz_final[fila][columna]=globales.fracciones.multiplicar(matriz1,matriz2[fila][columna]);
+						matriz_final[fila][columna]=globales.fracciones.multiplicar(matriz1,matriz2[fila][columna]??0);
 					}
 				}
 			}else
@@ -283,11 +283,10 @@
 			return (texto=="")?texto:globales.textos.remplazarPosiciones([texto.length-1],"",texto);
 		},
 		cambiarSigno:function(num){
-			return (num+(num*-2));
+			return num+(num*-2);
 		},
-		modular:function(num,modulo){
-			numero=Math.floor(num/modulo);
-			return globales.numeros.cambiarSigno((numero*modulo)-num);
+		modular:function(num,mod){
+			return num-(Math.floor(num/mod)*mod);
 		}
 	};
 
@@ -403,7 +402,7 @@
 			for(let columna=0; columna<parseInt(cantidad_matrices); columna++){
 				let encontro_letra=false;
 				let posi_letra=posi_texto;
-				while(encontro_letra==false){
+				while(!encontro_letra){
 					posi_letra++;
 					if(!globales.numeros.es.numero(texto[posi_letra])){
 						encontro_letra=true;
@@ -432,7 +431,7 @@
 		let llave="";
 		let repetir="";
 		do{
-			llave=globales.textos.remplazarLetra(" ","",prompt(repetir+"\n\nDigite "+LOGITUD_MATRIZ*LOGITUD_MATRIZ+" números enteros separados por comas.\nEjemplo: 1,2,3,4,5,6,7,8,9")??"cancelar");
+			llave=globales.textos.remplazarLetra(" ","",prompt(repetir+"\n\nDigite "+LOGITUD_MATRIZ*LOGITUD_MATRIZ+" números enteros separados por comas.\nEjemplo: "+globales.numeros.aleatorio(",",logitud_matriz*logitud_matriz,0,20))??"cancelar");
 			let matriz=globales.textos.separar(",",llave);
 			let matriz_llave=globales.matrices.dimensionar(logitud_matriz,matriz);
 			let determinante=globales.matrices.determinante(matriz_llave);
@@ -441,17 +440,21 @@
 				llave=globales.llave;
 			}else
 			if(llave==""){
-				repetir="Llave no válida (cancelar para salir)";
+				repetir="llave no válida (cancelar para salir)";
 			}else
 			if(matriz.length!=logitud_matriz*logitud_matriz){
-				repetir="Llave no cumple con la logitud";
+				repetir="llave no válida (no cumple con la logitud)";
 			}else
 			if(determinante==0 || determinante==""){
-				repetir="Llave no váilda (su determinante es 0)";
+				repetir="llave no váilda (su determinante es 0)";
 			}else{
 				for(let a=0; a<matriz.length; a++){
 					if(globales.numeros.es.decimal(matriz[a])){
-						repetir="Lllave no válida (los números no son enteros)";
+						repetir="Llave no válida (los números no son enteros)";
+						a=matriz.length;
+					}else
+					if(!globales.numeros.es.numero(matriz[a])){
+						repetir="Llave no válida (los datos deben ser sólo números enteros)";
 						a=matriz.length;
 					}else{
 						repetir="";
@@ -460,7 +463,7 @@
 			}
 		}while(repetir!="");
 		globales.llave=llave;
-		return (repetir=="")?"Llave cambiada a: "+globales.llave:"Sin cambio";
+		return (repetir=="")?"Llave actual: "+globales.llave:"Sin cambio";
 	}
 
 	function generarllaveAleatoria(logitud_matriz,min,max){
@@ -468,6 +471,7 @@
 			let llave=globales.numeros.aleatorio(",",logitud_matriz*logitud_matriz,min,max);
 			let matriz=globales.textos.separar(",",llave);
 			let matriz_llave=globales.matrices.dimensionar(logitud_matriz,matriz);
+			let modificada="";
 			if(globales.matrices.determinante(matriz_llave)==0){
 				matriz[0]=Number(matriz_llave[0][0])+1;
 				if((matriz[0]-1)!=matriz[matriz.length-1]){
@@ -475,9 +479,10 @@
 				}else{
 					matriz[Math.floor(matriz.length/2)]=Number(matriz_llave[logitud_matriz-1][logitud_matriz-1])+1;
 				}
+				modificada="La llave fue modificada debido a que su determinante era 0";
 			}
 			globales.llave=globales.matrices.separar(",",matriz);
-			return "Llave cambiada a: "+globales.llave;
+			return modificada+"\n\nLlave cambiada a: "+globales.llave;
 		}else{
 			return "Lo números no son válidos";
 		}
