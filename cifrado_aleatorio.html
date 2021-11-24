@@ -431,7 +431,7 @@
 		let llave="";
 		let repetir="";
 		do{
-			llave=globales.textos.remplazarLetra(" ","",prompt(repetir+"\n\nDigite "+LOGITUD_MATRIZ*LOGITUD_MATRIZ+" números enteros separados por comas.\nEjemplo: "+globales.numeros.aleatorio(",",logitud_matriz*logitud_matriz,0,20))??"cancelar");
+			llave=globales.textos.remplazarLetra(" ","",prompt(repetir+"\n\nDigite "+LOGITUD_MATRIZ*LOGITUD_MATRIZ+" números enteros positivos separados por comas.\nEjemplo: "+globales.numeros.aleatorio(",",logitud_matriz*logitud_matriz,0,20))??"cancelar");
 			let matriz=globales.textos.separar(",",llave);
 			let matriz_llave=globales.matrices.dimensionar(logitud_matriz,matriz);
 			let determinante=globales.matrices.determinante(matriz_llave);
@@ -453,6 +453,10 @@
 						repetir="Llave no válida (los números no son enteros)";
 						a=matriz.length;
 					}else
+					if(globales.numeros.es.negativo(matriz[a])){
+						repetir="Llave no válida (los datos deben ser sólo números enteros positivos)";
+						a=matriz.length;
+					}else
 					if(!globales.numeros.es.numero(matriz[a])){
 						repetir="Llave no válida (los datos deben ser sólo números enteros)";
 						a=matriz.length;
@@ -463,11 +467,12 @@
 			}
 		}while(repetir!="");
 		globales.llave=llave;
-		return (repetir=="")?"Llave actual: "+globales.llave:"Sin cambio";
+		return "Llave actual: "+globales.llave;
 	}
 
 	function generarllaveAleatoria(logitud_matriz,min,max){
-		if((min!="" || max!="") && (globales.numeros.es.numero(min) && globales.numeros.es.numero(max))){
+		if((min!="" || max!="") && (globales.numeros.es.numero(min) && globales.numeros.es.numero(max)) &&
+			(!globales.numeros.es.negativo(min) && !globales.numeros.es.negativo(max))){
 			let llave=globales.numeros.aleatorio(",",logitud_matriz*logitud_matriz,min,max);
 			let matriz=globales.textos.separar(",",llave);
 			let matriz_llave=globales.matrices.dimensionar(logitud_matriz,matriz);
@@ -484,7 +489,7 @@
 			globales.llave=globales.matrices.separar(",",matriz);
 			return modificada+"\n\nLlave cambiada a: "+globales.llave;
 		}else{
-			return "Lo números no son válidos";
+			return "Lo números no son válidos (deben ser números enteros positivos)";
 		}
 	}
 
